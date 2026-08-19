@@ -13,9 +13,8 @@ FEATURES
 
 REQUIREMENTS
 1. JDK 17 or later
-2. NetBeans IDE
-3. MySQL Server / XAMPP MySQL
-4. Maven internet access for the first build
+2. MySQL Server / XAMPP MySQL
+3. Maven internet access for the first build
 
 DATABASE SETUP
 1. Start MySQL.
@@ -25,9 +24,9 @@ DATABASE SETUP
    src/main/java/com/studentmanagement/DatabaseConnection.java
 5. Change USERNAME and PASSWORD to your MySQL login.
 
-OPEN IN NETBEANS
+OPEN IN VS CODE
 1. Extract this ZIP.
-2. Open NetBeans.
+2. Open VS code.
 3. Select File > Open Project.
 4. Select the StudentManagementSystem folder.
 5. Wait for Maven dependencies to download.
