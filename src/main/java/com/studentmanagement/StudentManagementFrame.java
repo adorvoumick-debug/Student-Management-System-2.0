@@ -13,15 +13,13 @@ public class StudentManagementFrame extends JFrame {
 
     private final JTextField nameField = new JTextField();
     private final JComboBox<String> departmentBox = new JComboBox<>(
-            new String[]{"CSE", "EEE", "BBA", "English", "Economics"}
-    );
+            new String[] { "CSE", "EEE", "BBA", "English", "Economics" });
     private final JTextField emailField = new JTextField();
     private final JTextField phoneField = new JTextField();
     private final JTextField searchField = new JTextField();
 
     private final DefaultTableModel tableModel = new DefaultTableModel(
-            new String[]{"ID", "Name", "Department", "Email", "Phone"}, 0
-    ) {
+            new String[] { "ID", "Name", "Department", "Email", "Phone" }, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -84,8 +82,7 @@ public class StudentManagementFrame extends JFrame {
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(220, 225, 232)),
-                new EmptyBorder(20, 20, 20, 20)
-        ));
+                new EmptyBorder(20, 20, 20, 20)));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -107,8 +104,10 @@ public class StudentManagementFrame extends JFrame {
 
         JPanel firstRow = new JPanel(new GridLayout(1, 2, 8, 0));
         firstRow.setOpaque(false);
+
         JButton addButton = createPrimaryButton("Add");
-        JButton updateButton = createSecondaryButton("Update");
+        JButton updateButton = createPrimaryButton("Update");
+
         firstRow.add(addButton);
         firstRow.add(updateButton);
 
@@ -118,8 +117,10 @@ public class StudentManagementFrame extends JFrame {
 
         JPanel secondRow = new JPanel(new GridLayout(1, 2, 8, 0));
         secondRow.setOpaque(false);
-        JButton deleteButton = createDangerButton("Delete");
-        JButton clearButton = createSecondaryButton("Clear");
+
+        JButton deleteButton = createPrimaryButton("Delete");
+        JButton clearButton = createPrimaryButton("Clear");
+
         secondRow.add(deleteButton);
         secondRow.add(clearButton);
 
@@ -144,8 +145,7 @@ public class StudentManagementFrame extends JFrame {
             GridBagConstraints gbc,
             int labelRow,
             String labelText,
-            JComponent component
-    ) {
+            JComponent component) {
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("SansSerif", Font.BOLD, 13));
         label.setForeground(new Color(51, 65, 85));
@@ -173,9 +173,10 @@ public class StudentManagementFrame extends JFrame {
         searchLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         JButton searchButton = createPrimaryButton("Search");
-        JButton refreshButton = createSecondaryButton("Show All");
+        JButton refreshButton = createPrimaryButton("Show All");
 
-        JPanel searchButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        JPanel searchButtons = new JPanel(
+                new FlowLayout(FlowLayout.RIGHT, 8, 0));
         searchButtons.setOpaque(false);
         searchButtons.add(searchButton);
         searchButtons.add(refreshButton);
@@ -186,21 +187,27 @@ public class StudentManagementFrame extends JFrame {
 
         studentTable.setRowHeight(30);
         studentTable.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        studentTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 13));
-        studentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        studentTable.getTableHeader().setFont(
+                new Font("SansSerif", Font.BOLD, 13));
+        studentTable.setSelectionMode(
+                ListSelectionModel.SINGLE_SELECTION);
         studentTable.setFillsViewportHeight(true);
 
         JScrollPane scrollPane = new JScrollPane(studentTable);
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(203, 213, 225)));
+        scrollPane.setBorder(
+                BorderFactory.createLineBorder(
+                        new Color(203, 213, 225)));
 
         panel.add(searchPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         searchButton.addActionListener(e -> searchStudents());
+
         refreshButton.addActionListener(e -> {
             searchField.setText("");
             loadStudents();
         });
+
         searchField.addActionListener(e -> searchStudents());
 
         studentTable.getSelectionModel().addListSelectionListener(e -> {
@@ -214,28 +221,17 @@ public class StudentManagementFrame extends JFrame {
 
     private JButton createPrimaryButton(String text) {
         JButton button = new JButton(text);
+
+        button.setForeground(Color.WHITE);
         button.setBackground(new Color(37, 99, 235));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setFont(new Font("SansSerif", Font.BOLD, 13));
-        return button;
-    }
 
-    private JButton createSecondaryButton(String text) {
-        JButton button = new JButton(text);
-        button.setBackground(Color.WHITE);
-        button.setForeground(new Color(30, 64, 175));
+        button.setOpaque(true);
+        button.setContentAreaFilled(true);
+        button.setBorderPainted(false);
         button.setFocusPainted(false);
-        button.setFont(new Font("SansSerif", Font.BOLD, 13));
-        return button;
-    }
 
-    private JButton createDangerButton(String text) {
-        JButton button = new JButton(text);
-        button.setBackground(new Color(220, 38, 38));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
         button.setFont(new Font("SansSerif", Font.BOLD, 13));
+
         return button;
     }
 
@@ -248,8 +244,7 @@ public class StudentManagementFrame extends JFrame {
                 nameField.getText().trim(),
                 departmentBox.getSelectedItem().toString(),
                 emailField.getText().trim(),
-                phoneField.getText().trim()
-        );
+                phoneField.getText().trim());
 
         try {
             studentDAO.addStudent(student);
@@ -276,8 +271,7 @@ public class StudentManagementFrame extends JFrame {
                 nameField.getText().trim(),
                 departmentBox.getSelectedItem().toString(),
                 emailField.getText().trim(),
-                phoneField.getText().trim()
-        );
+                phoneField.getText().trim());
 
         try {
             studentDAO.updateStudent(student);
@@ -299,8 +293,7 @@ public class StudentManagementFrame extends JFrame {
                 this,
                 "Are you sure you want to delete this student?",
                 "Confirm Delete",
-                JOptionPane.YES_NO_OPTION
-        );
+                JOptionPane.YES_NO_OPTION);
 
         if (choice != JOptionPane.YES_OPTION) {
             return;
@@ -343,7 +336,7 @@ public class StudentManagementFrame extends JFrame {
         tableModel.setRowCount(0);
 
         for (Student student : students) {
-            tableModel.addRow(new Object[]{
+            tableModel.addRow(new Object[] {
                     student.getId(),
                     student.getName(),
                     student.getDepartment(),
@@ -361,15 +354,19 @@ public class StudentManagementFrame extends JFrame {
         }
 
         selectedStudentId = Integer.parseInt(
-                tableModel.getValueAt(selectedRow, 0).toString()
-        );
+                tableModel.getValueAt(selectedRow, 0).toString());
 
-        nameField.setText(tableModel.getValueAt(selectedRow, 1).toString());
+        nameField.setText(
+                tableModel.getValueAt(selectedRow, 1).toString());
+
         departmentBox.setSelectedItem(
-                tableModel.getValueAt(selectedRow, 2).toString()
-        );
-        emailField.setText(tableModel.getValueAt(selectedRow, 3).toString());
-        phoneField.setText(tableModel.getValueAt(selectedRow, 4).toString());
+                tableModel.getValueAt(selectedRow, 2).toString());
+
+        emailField.setText(
+                tableModel.getValueAt(selectedRow, 3).toString());
+
+        phoneField.setText(
+                tableModel.getValueAt(selectedRow, 4).toString());
     }
 
     private boolean isFormValid() {
@@ -392,10 +389,12 @@ public class StudentManagementFrame extends JFrame {
 
     private void clearForm() {
         selectedStudentId = -1;
+
         nameField.setText("");
         departmentBox.setSelectedIndex(0);
         emailField.setText("");
         phoneField.setText("");
+
         studentTable.clearSelection();
         nameField.requestFocus();
     }
@@ -405,8 +404,7 @@ public class StudentManagementFrame extends JFrame {
                 this,
                 message,
                 "Success",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void showWarning(String message) {
@@ -414,17 +412,16 @@ public class StudentManagementFrame extends JFrame {
                 this,
                 message,
                 "Warning",
-                JOptionPane.WARNING_MESSAGE
-        );
+                JOptionPane.WARNING_MESSAGE);
     }
 
     private void showDatabaseError(SQLException exception) {
         JOptionPane.showMessageDialog(
                 this,
-                "Database error:\n" + exception.getMessage()
+                "Database error:\n"
+                        + exception.getMessage()
                         + "\n\nCheck MySQL, the database name, and your password.",
                 "Database Connection Error",
-                JOptionPane.ERROR_MESSAGE
-        );
+                JOptionPane.ERROR_MESSAGE);
     }
 }
