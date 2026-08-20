@@ -1,19 +1,14 @@
 package com.studentmanagement;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(
-                        UIManager.getSystemLookAndFeelClassName()
-                );
-            } catch (Exception ignored) {
-            }
 
-            new StudentManagementFrame().setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            LoginFrame loginFrame = new LoginFrame();
+            loginFrame.setVisible(true);
         });
     }
 }
